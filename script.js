@@ -5,11 +5,27 @@ let breakfastParent = document.querySelector(".show_category");
 let carouselItem = document.querySelector(".carousel_item");
 
 prevReview.addEventListener("click",function(e){
-    console.log(carouselItem.getBoundingClientRect());
-    reviewcarousel.scrollBy(-100,0);
+ let item_width= (carouselItem.getBoundingClientRect().width)+20;
+ let left=item_width;
+ const reviewScroll=setInterval(() => {
+    reviewcarousel.scrollBy(-2,0);
+    left -=2;
+    if(left<=0){
+        clearInterval(reviewScroll);
+    }
+}, 1);
 })
 nextReview.addEventListener("click",function(e){
-    reviewcarousel.scrollBy(100,0);
+    let item_width= (carouselItem.getBoundingClientRect().width)+20;
+    let right=0;
+    const reviewScroll=setInterval(() => {
+        reviewcarousel.scrollBy(2,0);
+        right+=2;
+        if(right>=item_width){
+            right=0;
+            clearInterval(reviewScroll);
+        }
+    }, 1);
 })
 
 let xhrRequest = new XMLHttpRequest();
@@ -17,10 +33,8 @@ let xhrRequest = new XMLHttpRequest();
     xhrRequest.onload=function(){
         let response = xhrRequest.response;
         let resJson = JSON.parse(response);
-        console.log(resJson.meals);
         bf= resJson.meals;
         bf.forEach(ele => {
-            console.log(ele);
             let breakfastDom = ` <div class="category_dish">
             <div class="dish_img_div" >
             <img src="${ele.strMealThumb}">
@@ -29,7 +43,6 @@ let xhrRequest = new XMLHttpRequest();
                 ${ele.strMeal}
             </div>
             </div>`
-            console.log(breakfastDom);
             breakfastParent.innerHTML+=breakfastDom;
         });
     }

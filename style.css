@@ -49,6 +49,7 @@ body{
     top: 50%;
     right: 10%;
     transform: rotate(-20deg);
+    z-index: 1;
     animation: bannerImg 1s ease-in-out infinite alternate;
 }
 
@@ -63,7 +64,7 @@ body{
 
 .banner-img img{
     width: 100%;
-    height: 100%;
+    height: 100%; 
 }
 .logo{
     width: 270px;
@@ -111,6 +112,7 @@ body{
     font-weight: 900;
     letter-spacing: 1px;
     border-radius: 10px;
+    border: none;
 }
 .btn-search{
     background-color: var(--primary-color);
@@ -124,6 +126,44 @@ body{
     color: var(--color-black);
     font-weight: 900;
     letter-spacing: 1px;
+}
+
+
+@media screen and (max-width:900px) {
+    #banner{
+        justify-content: center;
+        align-items: flex-end;
+        height: 750px;
+        padding-bottom: 50px;
+    }
+    .banner-img{
+        right: 16%;
+    }
+    .bubble {
+        width: 65vw;
+        height: 65vw;
+        bottom: -10%;
+        left: -12%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    #banner{
+        height: 600px;
+    }
+    .logo{
+        width: 250px;
+        height:60px;
+
+    }
+    .banner-img{
+        width: 200px;
+        height: 200px;
+    }
+    .main-div h1{
+        font-size: 1.5rem;
+        line-height: 35px;
+    }
 }
 
 /* ------------------ Header section End -------------------- */
@@ -197,6 +237,20 @@ input::placeholder{
     color: var(--color-grey);
 }
 
+@media screen and (max-width:600px) {
+    .search_div{
+        width: 98%;
+    }
+    .search_div h1{
+        font-size: 1.5rem;
+    }
+    .search_div input{
+        font-size: 1.2rem;
+    }
+   
+
+}
+
 /* ------------------- Search Div End ----------------------  */
 
 /* ###################### Meal Category Start ################# */
@@ -221,7 +275,7 @@ input::placeholder{
 }
 .show_category{
     width: 95%;
-    margin-left: 5%;
+    margin-left: 2.5%;
     padding: 20px 25px;
     display: flex;
     justify-content: space-between;
@@ -269,6 +323,27 @@ input::placeholder{
     font-size: 1.2rem;
 }
 
+@media screen and (max-width:600px) {
+    .show_category{
+        margin-left: 0%;
+        padding: 20px 0;
+        width: 100%;
+    }
+    .category_dish{
+        width: 200px;
+        height: 290px;
+        margin-right: 0;
+        border-radius: 20px;
+    }
+    .dish_img_div img{
+        border-top-left-radius:20px;
+        border-top-right-radius:20px;
+    }
+    .dish_info{
+        font-size: 1rem;
+    }
+}
+
 /* red chilli div */
 .red_Chilli_div{
     position: relative;
@@ -281,6 +356,15 @@ input::placeholder{
     margin: 50px 35px;
     align-self: flex-end;
     transform: rotate(20deg);
+}
+
+@media screen and (max-width:900px) {
+    .red_Chilli_div{
+        margin: 0;
+        width: 200px;
+        height: 140px;
+        margin-right: 25px;
+    }
 }
 
 /* custumer reviews */
@@ -305,13 +389,13 @@ input::placeholder{
     top: 0%;
 }
 .review_poster_text{
-    width: 60%;
-    margin-left: 5%;
+    width: 65%;
+    margin-left: 2%;
 }
 
 .review_poster_text h1{
     color: var(--banner-text);
-    font-size: 2rem;
+    font-size: 1.48rem;
     margin: 30px 0;
     text-transform: capitalize;
 }
@@ -324,8 +408,8 @@ input::placeholder{
 .review_poster_para{
     color: var(--color-grey);
     text-align: justify;
-    font-size: 1.3rem;
-    width: 80%;
+    font-size: 1.21rem;
+    width: 90%;
 }
 
 .review_poster_number{
@@ -351,10 +435,9 @@ input::placeholder{
 .review_carousel{
     width: 50%;
     height: 100%;
-    /* background-color: aquamarine; */
     position: absolute;
     z-index: 1;
-    right: 5%;
+    right: 3%;
     top:10%;
     overflow-x: auto;
     display: flex;
@@ -439,6 +522,101 @@ input::placeholder{
     font-family: 'Dancing Script', cursive;
 }
 
+@media screen and (max-width:900px) {
+    .customer_review{
+        width: 98%;
+        margin-left: 1%;
+        height: 700px;
+    }
+    .review_poster{
+        width: 100%;
+    }
+    .review_poster_text{
+        width: 98%;
+        margin-left: 1%;
+    }
+    .review_poster_para{
+        width: 100%;
+    }
+    .review_poster_number{
+        width: 90%;
+    }
+    .review_carousel{
+        width: 100%;
+        height: 50%;
+        bottom: 0%;
+        left: 0%;
+        right: auto;
+        top: auto;
+        border-bottom-right-radius :60px;
+        align-items: center;
+    }
+    .carousel_item{
+        margin-bottom: 25px;
+    }
+    .carousel_btn{
+        bottom: 0%;
+        margin-bottom: 0%;
+        align-items: flex-end;
+        width: 100%;
+        right: 0;
+        padding-bottom: 5px;
+    }
+    .prev_review{
+        width: 45px;
+        height: 45px;
+    }
+    .next_review{
+        width: 45px;
+        height: 45px;
+
+    }
+}
+
+@media screen and (max-width:600px) {
+    .customer_review{
+        width: 100%;
+        margin-left: 0;
+        height: 665px;
+    }
+    .review_poster{
+        border-radius: 0;
+    }
+    .review_poster_text h1{
+        font-size: 6vw;
+    }
+    .review_poster_para{
+        font-size: 1rem;
+    }
+    .review_poster_number
+    {
+        width: 100%;
+    }
+    .review_number{
+        text-align: center;
+    }
+    .num{
+        font-size: 1.5rem;
+    }
+    .num_name{
+        font-size: .8rem;
+    }
+
+    .carousel_item{
+     height: 70%;
+     margin: 0 10px;
+    }
+    .review_user_name{
+        font-size: 1rem;
+    }
+    .user_text{
+        font-size: .8rem;
+    }
+    .carousel_btn{
+        height: 50px;
+    }
+}
+
 /* footer */
 
 footer{
@@ -497,5 +675,32 @@ footer{
 }
 
 @media screen and (max-width:900px) {
-    
+    footer{
+        flex-wrap: wrap;
+    }
+    .div1{
+        flex-basis: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width:600px) {
+    footer{
+        height: 550px;
+    }
+    .div2{
+        font-size: .8rem;
+    }
+    .div4{
+        margin-bottom: 70px;
+    }
+    .copyright{
+        left: 0;
+        right: 0;
+        text-align: center;
+        bottom: 1%;
+        font-size: .7rem;
+    }
 }
