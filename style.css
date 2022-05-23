@@ -581,6 +581,9 @@ input::placeholder{
         margin-left: 0;
         height: 665px;
     }
+    .review_carousel{
+        width: 98%;
+    }
     .review_poster{
         border-radius: 30px;
         width: 98%;
