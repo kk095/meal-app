@@ -3,6 +3,22 @@ let prevReview = document.querySelector(".prev_review");
 let nextReview = document.querySelector(".next_review");
 let breakfastParent = document.querySelector(".show_category");
 let carouselItem = document.querySelector(".carousel_item");
+let searchAnchor = document.querySelector("#search_anchor");
+
+let mealSearch = document.querySelector("#meal");
+
+
+searchAnchor.addEventListener("click",function(e){
+    e.preventDefault();
+    let y=mealSearch.getBoundingClientRect().y;
+    let scrollSearch = setInterval(() => {
+        window.scrollBy(0,3);
+        y = mealSearch.getBoundingClientRect().y;
+        if(y<=5){
+            clearInterval(scrollSearch);
+        }
+    }, 1);
+})
 
 prevReview.addEventListener("click",function(e){
  let item_width= (carouselItem.getBoundingClientRect().width)+20;
