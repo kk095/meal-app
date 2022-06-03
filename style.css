@@ -224,6 +224,7 @@ main{
     width: 100%;
     height: 50px;
     margin: 30px 0;
+    margin-bottom: 0;
     outline: none;
     border: 2px solid var(--color-grey);
     border-radius: 10px;
@@ -237,6 +238,44 @@ input:focus{
 
 input::placeholder{
     color: var(--color-grey);
+}
+
+.search_suggestion{
+    width:100%;
+    height: 200px;
+    background-color: var(--item-div);
+    border-radius: 10px;
+    overflow-y: auto;
+    text-align: left;
+    font-size: 1.5rem;
+    display: none;
+}
+
+.search_suggestion::-webkit-scrollbar{
+    background-color: var(--item-div);
+    width:8px;
+}
+
+.search_suggestion::-webkit-scrollbar-thumb{
+    width: 8px;
+    background-color:var(--color-grey);
+    border-radius: 5px;
+}
+
+.search_suggestion span{
+    color: var(--color-grey);
+    font-size: .9rem;
+    float: right;
+    margin-right: 1%;
+}
+
+.search_suggestion div{
+    margin: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.search_suggestion div:hover{
+    background-color:lightgrey;
 }
 
 @media screen and (max-width:600px) {
@@ -254,6 +293,28 @@ input::placeholder{
 }
 
 /* ------------------- Search Div End ----------------------  */
+
+/* ############################### SEARCH RESULT START ############################### */
+.search_result{
+    width: 100%;
+    height: auto;
+    display: none;
+}
+
+.show_search_result{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: center;
+    height:auto;
+    position: relative;
+    overflow: hidden;
+}
+.show_search_result>div{
+    margin-bottom: 20px;
+}
+
+
 
 /* ###################### Meal Category Start ################# */
 
@@ -305,10 +366,16 @@ input::placeholder{
 .dish_img_div{
     width: 100%;
     height: 60%;
-    background: url('img/pizza.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
+    position: relative;
+ 
+}
+.dish_img_div i{
+    position: absolute;
+    top: 5%;
+    right: 7%;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    cursor: pointer;
 }
 .dish_img_div img{
     width: 100%;
@@ -435,11 +502,11 @@ input::placeholder{
 
 /* carousel of review */
 .review_carousel{
-    width: 50%;
+    width: 48%;
     height: 100%;
     position: absolute;
     z-index: 1;
-    right: 3%;
+    right: 1%;
     top:10%;
     overflow-x: auto;
     display: flex;

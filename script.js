@@ -4,11 +4,33 @@ let nextReview = document.querySelector(".next_review");
 let breakfastParent = document.querySelector(".show_category");
 let carouselItem = document.querySelector(".carousel_item");
 let searchAnchor = document.querySelector("#search_anchor");
-
 let mealSearch = document.querySelector("#meal");
+let searchSuggestion = document.querySelector(".search_suggestion");
+let suggestion = document.querySelectorAll(".suggestion");
+let searchResult = document.querySelector(".show_search_result");
+let viewMoreSpan = document.querySelector("#view_result_more");
 
+
+let mealInfo={
+    favourite:[],
+    item : "none"
+}
+
+
+class Favourite{
+    constructor(icon){
+        this.icon=icon.target;
+        this.handleClick();
+    }
+
+    handleClick(){
+        let name = this.icon.getAttribute("id");
+        mealInfo.favourite.push(name);
+    }
+}
 
 searchAnchor.addEventListener("click",function(e){
+// WHEN SEARCH BTN IS CLICKED , WINDOW IS SCROLL TILL SEARCH INPUT
     e.preventDefault();
     let y=mealSearch.getBoundingClientRect().y;
     let scrollSearch = setInterval(() => {
@@ -21,6 +43,7 @@ searchAnchor.addEventListener("click",function(e){
 })
 
 prevReview.addEventListener("click",function(e){
+// WHEN PREV BTN IN REVIEW CAROUSEL IS CLICKED , PREVIOUS REVIEWS IS SHOWN 
  let item_width= (carouselItem.getBoundingClientRect().width)+20;
  let left=item_width;
  const reviewScroll=setInterval(() => {
@@ -31,7 +54,9 @@ prevReview.addEventListener("click",function(e){
     }
 }, 1);
 })
+
 nextReview.addEventListener("click",function(e){
+// WHEN NEXT BTN IN REVIEW CAROUSEL IS CLICKED , NEXT REVIEWS IS SHOWN
     let item_width= (carouselItem.getBoundingClientRect().width)+20;
     let right=0;
     const reviewScroll=setInterval(() => {
@@ -44,15 +69,17 @@ nextReview.addEventListener("click",function(e){
     }, 1);
 })
 
-let xhrRequest = new XMLHttpRequest();
 
-    xhrRequest.onload=function(){
+// FETCH THE BREAKFAST DATA    
+let xhrRequest = new XMLHttpRequest();
+xhrRequest.onload=function(){
         let response = xhrRequest.response;
         let resJson = JSON.parse(response);
         bf= resJson.meals;
         bf.forEach(ele => {
             let breakfastDom = ` <div class="category_dish">
             <div class="dish_img_div" >
+            <i class="far fa-heart" id="${ele.strMeal}" onClick="new Favourite(event)" ></i>
             <img src="${ele.strMealThumb}">
             </div>
             <div class="dish_info">
@@ -60,17 +87,71 @@ let xhrRequest = new XMLHttpRequest();
             </div>
             </div>`
             breakfastParent.innerHTML+=breakfastDom;
+            
         });
     }
-    xhrRequest.onerror=function(err){
+xhrRequest.onerror=function(err){
+        console.log(err);
+}    
+xhrRequest.open("get","https://www.themealdb.com/api/json/v1/1/filter.php?c=BreakFast",true);
+xhrRequest.send();
+
+function mealInputHandle(e){
+// SOMETHING IS TYPE IN SEARCH INPUT ,FETCH THE RESULT OF SEARCH INPUT
+document.querySelector(".search_result").style.display="block";
+searchResult.innerHTML="";
+    if(e==""){
+        document.querySelector(".search_result").style.display="none";
+    }
+    let xhrRequest = new XMLHttpRequest();
+
+    xhrRequest.onload = function(){
+        let res = xhrRequest.response;
+        res = JSON.parse(res);
+        if(res.meals!=null){
+            searchSuggestion.innerHTML=`<span> "${res.meals.length}" results found </span>`;
+            res.meals.forEach((ele)=>{
+                searchSuggestion.style.display="block";
+                searchSuggestion.innerHTML += `
+                <div class="suggestion" onclick="suggestionHandle(event)" >
+                    ${ele.strMeal}
+                </div>`
+                let resultDom = `<div class="category_dish">
+                    <div class="dish_img_div" >
+                    <i class="far fa-heart"></i>
+                        <img src="${ele.strMealThumb}">
+                    </div>
+                    <div class="dish_info">
+                            ${ele.strMeal}
+                    </div>
+                </div>`
+                document.querySelector(".search_result").style.display="block";
+                searchResult.innerHTML += resultDom;
+            })
+        }else{
+            searchSuggestion.style.display="none";
+            document.querySelector(".search_result").style.display="none";
+        }
+    }
+
+    xhrRequest.onerror = function(err){
         console.log(err);
     }
-    
-    xhrRequest.open("get","https://www.themealdb.com/api/json/v1/1/filter.php?c=BreakFast",true);
+    xhrRequest.open("get",`https://www.themealdb.com/api/json/v1/1/search.php?s=${e}`)
     xhrRequest.send();
+}
+
+mealSearch.addEventListener("input",function(e){
+    mealInputHandle(e.target.value)
+})
+document.querySelector("body").addEventListener("click",function(e){
+    searchSuggestion.style.display="none";
+})
+
+function suggestionHandle(e){
+// CLICKED ON SUGGESTION , SHOW THAT SUGGESTION IN INPUT VALUE 
+            mealSearch.value = e.target.innerText;
+            mealInputHandle(e.target.innerText);
+}
 
 
-
-// for(let x in BreakFast){
-//     console.log(x);
-// }
