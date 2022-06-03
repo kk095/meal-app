@@ -9,7 +9,52 @@ let searchSuggestion = document.querySelector(".search_suggestion");
 let suggestion = document.querySelectorAll(".suggestion");
 let searchResult = document.querySelector(".show_search_result");
 let viewMoreSpan = document.querySelector("#view_result_more");
+let filtername = document.querySelectorAll(".filter_name");
 
+class Category{
+    constructor(e){
+        this.ele= e;
+        this.handleClick();
+    }
+    handleClick(){
+        let self= this.ele
+        this.ele.addEventListener("click",function(){
+            console.log(self.innerText);
+            let category=self.innerText;
+            let xhrRequest = new XMLHttpRequest();
+            xhrRequest.onload = function(){
+                let res = JSON.parse(xhrRequest.response).meals;
+                console.log(res);
+                document.querySelector(".search_result").style.display="block";
+                searchResult.innerHTML="";
+                res.forEach((ele)=>{
+                    let resultDom = `<div class="category_dish">
+                    <div class="dish_img_div" >
+                    <i class="far fa-heart"></i>
+                    <img src="${ele.strMealThumb}">
+                    </div>
+                    <div class="dish_info">
+                    ${ele.strMeal}
+                    </div>
+                    </div>`
+                    document.querySelector(".search_result").style.display="block";
+                    searchResult.innerHTML += resultDom;
+                })
+            }
+            xhrRequest.open("get",`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+            xhrRequest.send();
+            xhrRequest.onerror = function(err){
+                console.log(err);
+            }
+
+        })
+    }
+
+}
+
+filtername.forEach((ele)=>{
+    new Category(ele);
+})
 
 let mealInfo={
     favourite:[],

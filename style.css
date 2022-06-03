@@ -288,6 +288,10 @@ input::placeholder{
     .search_div input{
         font-size: 1.2rem;
     }
+    .show_search_result div{
+        width: 150px;
+        height: 200px;
+    }
    
 
 }
@@ -376,6 +380,9 @@ input::placeholder{
     font-size: 1.5rem;
     color: var(--primary-color);
     cursor: pointer;
+}
+.dish_img_div i:hover{
+    font-size: 1.6rem;
 }
 .dish_img_div img{
     width: 100%;
